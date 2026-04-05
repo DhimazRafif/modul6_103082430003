@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace modul6_103082430003
@@ -12,6 +13,10 @@ namespace modul6_103082430003
 
         public SayaTubeUser(string username)
         {
+            //prekondisi
+            Debug.Assert(username != null, "Username tidak boleh null!");
+            Debug.Assert(username.Length <= 100, "Username maksimal 100 karakter!");
+
             this.username = username;
             this.uploadedVideos = new List<SayaTubeVideo>();
 
@@ -32,6 +37,8 @@ namespace modul6_103082430003
 
         public void AddVideo(SayaTubeVideo video)
         {
+            Debug.Assert(video!=null,"Video yang ditambahkan tidak bisa null");
+            Debug.Assert(video.GetPlayCount()<int.MaxValue,"playCount harus kurang dari nilai maksismum integer");
             uploadedVideos.Add(video);
         }
 
@@ -39,7 +46,10 @@ namespace modul6_103082430003
         {
             Console.WriteLine($"User : {username}");
 
-            for (int i = 0; i < uploadedVideos.Count; i++)
+            //post kondisi
+            int limit = Math.Min(uploadedVideos.Count,8);
+
+            for (int i = 0; i < limit; i++)
             {
                 Console.WriteLine($"Video {i + 1} judul: {uploadedVideos[i].GetTitle()}");
             }

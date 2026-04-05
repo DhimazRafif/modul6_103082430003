@@ -20,6 +20,11 @@ namespace modul6_103082430003
         }
         public SayaTubeVideo(string title)
         {
+            if (title == null || title.Length > 100)
+            {
+                throw new ArgumentException("Judul tidak boleh kosong dan maksimal panjang judul 100 karakter");
+
+            }
             this.title = title;
             this.playCount = 0;
 
@@ -30,7 +35,22 @@ namespace modul6_103082430003
 
         public void IncreasePlayCount(int plusCount)
         {
-            this.playCount += plusCount;
+            //prekondisi
+            if (plusCount > 25000000 || plusCount<0)
+                throw new ArgumentOutOfRangeException("Maksimal nominal penambahan adalah 25.000.000 dan nominal plusCount tidak boleh negatif.");
+            
+
+            try
+            {
+                checked
+                {
+                    this.playCount += plusCount;
+                }
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Error : error overflow penambahan melebihi batas integer atau negatif");
+            }
         }
 
         public void PrintVideoDetails()

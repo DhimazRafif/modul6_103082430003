@@ -4,35 +4,47 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        SayaTubeUser user = new SayaTubeUser("Dhimaz Rafif Hanafi");
+        Console.WriteLine("Normal Condition");
+        try
+        {
+            SayaTubeUser user = new SayaTubeUser("Dhimaz Rafif Hanafi");
 
-        SayaTubeVideo film1 = new SayaTubeVideo("Review Film Maquia oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film2 = new SayaTubeVideo("Review Film Kimi No Nawa Dhimaz Rafif Hanafi");
-        SayaTubeVideo film3 = new SayaTubeVideo("Review Film Pacific RIM oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film4 = new SayaTubeVideo("Review Film Guardian Of The Galaxy oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film5 = new SayaTubeVideo("Review Film Minion oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film6 = new SayaTubeVideo("Review Film Kungfu Panda oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film7 = new SayaTubeVideo("Review Film Spiderman In To The Spiderverse oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film8 = new SayaTubeVideo("Review Film Chainsaw Man Reze Arc oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film9 = new SayaTubeVideo("Review Film Superman oleh Dhimaz Rafif Hanafi");
-        SayaTubeVideo film10 = new SayaTubeVideo("Review Film Despicable Me oleh Dhimaz Rafif Hanafi");
+            SayaTubeVideo film11 = new SayaTubeVideo("Review Film Maquia oleh Dhimaz Rafif Hanafi");
+            film11.IncreasePlayCount(1000);
 
+            user.AddVideo(film11);
+        }
+        catch (Exception ex) 
+        {
+            Console.WriteLine($"Gagal : {ex.Message}");
+        }
 
-        user.AddVideo(film1);
-        user.AddVideo(film2);
-        user.AddVideo(film3);
-        user.AddVideo(film4);
-        user.AddVideo(film5);
-        user.AddVideo(film6);
-        user.AddVideo(film7);
-        user.AddVideo(film8);
-        user.AddVideo(film9);
-        user.AddVideo(film10);
+        Console.WriteLine("\n Testing Overflow");
+        SayaTubeVideo test = new SayaTubeVideo("Review Film Minion oleh Dhimaz Rafif Hanafi");
+        try
+        {
+            for(int i = 0; i < 90; i++)
+            {
+                test.IncreasePlayCount(25000000);
+            }
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine($"Caught Exception: {ex.Message}");
+        }
+        test.PrintVideoDetails();
 
-        film1.IncreasePlayCount(20);
-        film1.PrintVideoDetails();
+        Console.WriteLine("Testing post condition print 8 video");
+        SayaTubeUser testUser = new SayaTubeUser("Dhimaz Sutrisno");
 
-        user.GetTotalVideoPlayCount();
-        user.PrintAllVideoPlayCount();
+        for(int i = 1;i <= 10; i++)
+        {
+            testUser.AddVideo(new SayaTubeVideo($"Review Film part{i}"));
+        }
+
+        testUser.PrintAllVideoPlayCount();
+
+        Console.WriteLine($"\nTest precondition nama video null");
+        SayaTubeVideo videoSalah = new SayaTubeVideo(null);
     }
 }
